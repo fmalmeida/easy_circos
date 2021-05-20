@@ -162,6 +162,18 @@ for file in $(ls ${RESULTS}/conf/*); do
 done
 }
 
+###############################################
+### Function to check which chrs have links ###
+###############################################
+check_links()
+{
+# get chrs with links
+CHRS=$(cut -f 1 links_concatenated.txt | sort -u | tr '\n' ';')
+
+# export LINE
+export CUSTOM_CHR_LINE="chromosomes = "${CHRS}
+}
+
 #########################################################
 ### Function to create GC skew file proper for Circos ###
 #########################################################
@@ -187,7 +199,8 @@ chromosomes_units = 1000000
 # Show all chromosomes in karyotype file. By default, this is
 # true. If you want to explicitly specify which chromosomes
 # to draw, set this to 'no' and use the 'chromosomes' parameter.
-chromosomes_display_default = yes
+chromosomes_display_default = no
+${CUSTOM_CHR_LINE}
 
 # Chromosome name, size and color definition
 karyotype = circos.sequences.txt
@@ -462,19 +475,38 @@ done
 ###################
 ### Exec script ###
 ###################
+# Step 1
+echo " # Preparing inputs!"
 rm -rf $RESULTS ;
 filter          ;
+
+# Step 2
+echo " # Writing karyotypes!"
 karyotype       ;
+
+# Step 3
+echo " # Finding links (all vs all blastn)!"
 find_links      ;
 parse_links     ;
+
+# Step 4
+echo " # Removing duplicate lines in conf files!"
 dedup           ;
+check_links     ;
+
+# Step 5
+echo " # Computing GC Skew!"
 gc_skew         ;
+
+# Step 6
+echo " # Wrinting circos conf file!"
 write_circos > ${RESULTS}/conf/circos.conf ;
+
+# Step 7
+echo " # Plotting circos!"
 plot_circos     ;
 
 cat << EOF
-
-
 
  # Bye Bye
  Now your plot is complete and must be available at: ${RESULTS}/conf/
@@ -484,6 +516,6 @@ cat << EOF
 
  Remember to read the manual in order to understand the conf file.
 
- Best regards!
+ Have fun!
 
 EOF

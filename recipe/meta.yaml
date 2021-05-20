@@ -20,6 +20,7 @@ requirements:
     - biopython
     - numpy
     - perl-app-cpanminus
+    - perl-module-build
   run:
     - perl
     - circos
@@ -28,6 +29,7 @@ requirements:
     - biopython
     - numpy
     - perl-app-cpanminus
+    - perl-module-build
 
 about:
   home: "https://github.com/fmalmeida/easy_circos_plot"
