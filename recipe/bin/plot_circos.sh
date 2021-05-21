@@ -168,7 +168,7 @@ done
 check_links()
 {
 # get chrs with links
-CHRS=$(cut -f 1 links_concatenated.txt | sort -u | tr '\n' ';')
+CHRS=$(cut -f 1 ${RESULTS}/conf/links_concatenated.txt | sort -u | tr '\n' ';')
 
 # export LINE
 export CUSTOM_CHR_LINE="chromosomes = "${CHRS}

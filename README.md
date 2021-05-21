@@ -33,7 +33,18 @@ conda activate easy_circos
 plot_circos.sh --help
 
 # quickstart (with test data)
-plot_circos --fasta1 --fasta2
+## download ecoli genome 1
+wget https://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/008/865/GCF_000008865.2_ASM886v2/GCF_000008865.2_ASM886v2_genomic.fna.gz \
+  -O ecoli_sakai.fna.gz && \
+  gzip -d ecoli_sakai.fna.gz
+
+## download ecoli genome 2
+wget https://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/005/845/GCF_000005845.2_ASM584v2/GCF_000005845.2_ASM584v2_genomic.fna.gz \
+  -O ecoli_k12.fna.gz && \
+  gzip -d ecoli_k12.fna.gz
+
+## run circos plot
+plot_circos --fasta1 ecoli_sakai.fna --fasta2 ecoli_k12.fna
 ```
 
 ## Collaborating
