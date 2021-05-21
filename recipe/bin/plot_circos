@@ -150,7 +150,7 @@ awk -v color2=$FASTA2_COLOR -F'\t' 'NR==FNR{c[$1]++;next};c[$1] > 0 {print $0 "\
 rm tmp_names.fasta2 ;
 
 # now remove intrachr links
-awk -F'\t' 'if ($1 != $4) { print }' ${RESULTS}/conf/links_concatenated_colored.txt > ${RESULTS}/conf/links_concatenated_colored_no_intrachr.txt ;
+awk -F'\t' '{ if ($1 != $4) { print } }' ${RESULTS}/conf/links_concatenated_colored.txt > ${RESULTS}/conf/links_concatenated_colored_no_intrachr.txt ;
 }
 
 #############################################################################
