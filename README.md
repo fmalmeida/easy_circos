@@ -2,7 +2,17 @@
 
 # Easy (minimal) circos plot
 
-easy_circos is a simple conda package that aims on rapidly and easily creating minimal circos configuration and plots between two fasta files.
+easy_circos is a simple conda package that aims on rapidly and easily creating minimal circos configurations templates based on input data so that users can further customize and plot by their own desires.
+
+## Table of contents
+
+* [Features](https://github.com/fmalmeida/easy_circos#features)
+* [Installation](https://github.com/fmalmeida/easy_circos#installation)
+* [Documentation](https://github.com/fmalmeida/easy_circos#documentation)
+* [How can you colaborate?](https://github.com/fmalmeida/easy_circos#collaborating)
+* [Citation](https://github.com/fmalmeida/easy_circos#citation)
+
+## Features
 
 For now, it only has the ability to produce a circos plot showing the GC skew and the links between two fasta files, however, some other implementations are already in mind:
 
@@ -13,13 +23,6 @@ For now, it only has the ability to produce a circos plot showing the GC skew an
 * ...
 
 > If you have another idea of implementation flag an issue discussing it (See: [How can you colaborate?](https://github.com/fmalmeida/easy_circos#collaborating))
-
-## Table of contents
-
-* [Installation](https://github.com/fmalmeida/easy_circos#installation)
-* [Documentation](https://github.com/fmalmeida/easy_circos#documentation)
-* [How can you colaborate?](https://github.com/fmalmeida/easy_circos#collaborating)
-* [Citation](https://github.com/fmalmeida/easy_circos#citation)
 
 ## Installation
 
