@@ -171,11 +171,13 @@ done
 check_links()
 {
 # get chrs with links
+## chr source
 CHRS_1=$(cut -f 1 ${RESULTS}/conf/links_concatenated_colored_no_intrachr.txt | sort -u | tr '\n' ';')
+## chr target
 CHRS_2=$(cut -f 4 ${RESULTS}/conf/links_concatenated_colored_no_intrachr.txt | sort -u | tr '\n' ';')
 
 # export LINE
-export CUSTOM_CHR_LINE="chromosomes = "${CHRS}
+export CUSTOM_CHR_LINE="chromosomes = "${CHRS_1}${CHRS_2}
 }
 
 #########################################################
