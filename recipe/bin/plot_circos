@@ -243,7 +243,7 @@ label_parallel	 = yes
 <links>
 	<link>
 		show     = yes
-		ribbon   = no
+		ribbon   = yes
 		file     = links_concatenated_colored_no_intrachr.txt
 		radius   = 0.8r
 		tickness = 15
