@@ -281,7 +281,7 @@ orientation = out
 # debugging, I/O an dother system parameters
 <<include etc/housekeeping.conf>> # included from Circos distribution
 
-show_tick_labels = yes
+show_ticks = yes
 show_tick_labels = yes
 
 <ticks>
