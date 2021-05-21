@@ -281,7 +281,7 @@ orientation = out
 # debugging, I/O an dother system parameters
 <<include etc/housekeeping.conf>> # included from Circos distribution
 
-show_ticks = yes
+show_tick_labels = yes
 show_tick_labels = yes
 
 <ticks>
@@ -296,28 +296,29 @@ color            = black
 thickness        = 4p
 size             = 20p
 
+# with you desired more ticks, add new tick inclusions as the one shown. See: http://circos.ca/documentation/tutorials/ticks_and_labels/labels/configuration
 <tick>
 spacing        = 1u
-show_label     = no
-thickness      = 2p
-color          = dgrey
-</tick>
-
-<tick>
-spacing        = 2.5u
-show_label     = no
-thickness      = 3p
-color          = vdgrey
-</tick>
-
-<tick>
-spacing        = 5.5u
 show_label     = yes
-label_size     = 20p
+label_size     = 30p
 label_offset   = 10p
 format         = %d
 grid           = yes
-grid_color     = dgrey
+grid_color     = black
+grid_thickness = 1p
+grid_start     = 0.5r
+grid_end       = 0.999r
+</tick>
+
+<tick>
+skip_first_label = yes
+spacing        = 0.5u
+show_label     = yes
+label_size     = 30p
+label_offset   = 10p
+format         = %.2fMb
+grid           = yes
+grid_color     = black
 grid_thickness = 1p
 grid_start     = 0.5r
 grid_end       = 0.999r
