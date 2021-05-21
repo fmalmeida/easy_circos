@@ -1,16 +1,15 @@
-![](https://anaconda.org/falmeida/easy_circos_plot/badges/version.svg) ![](https://anaconda.org/falmeida/easy_circos_plot/badges/latest_release_date.svg) ![](https://anaconda.org/falmeida/easy_circos_plot/badges/platforms.svg) ![](https://anaconda.org/falmeida/easy_circos_plot/badges/installer/conda.svg)
+![](https://anaconda.org/falmeida/easy_circos/badges/version.svg) ![](https://anaconda.org/falmeida/easy_circos/badges/latest_release_date.svg) ![](https://anaconda.org/falmeida/easy_circos/badges/platforms.svg) ![](https://anaconda.org/falmeida/easy_circos/badges/installer/conda.svg)
 
 # Easy (minimal) circos plot
 
-easy_circos_plot is a simple conda package that aims on rapidly and easily creating minimal circos configuration and plots between two fasta files.
+easy_circos is a simple conda package that aims on rapidly and easily creating minimal circos configuration and plots between two fasta files.
 
 ## Table of contents
 
-* [Requirements](https://github.com/fmalmeida/easy_circos_plot#requirements)
-* [Installation](https://github.com/fmalmeida/easy_circos_plot#installation)
-* [Documentation](https://github.com/fmalmeida/easy_circos_plot#documentation)
-* [How can you colaborate?](https://github.com/fmalmeida/easy_circos_plot#collaborating)
-* [Citation](https://github.com/fmalmeida/easy_circos_plot#citation)
+* [Installation](https://github.com/fmalmeida/easy_circos#installation)
+* [Documentation](https://github.com/fmalmeida/easy_circos#documentation)
+* [How can you colaborate?](https://github.com/fmalmeida/easy_circos#collaborating)
+* [Citation](https://github.com/fmalmeida/easy_circos#citation)
 
 ## Installation
 
@@ -30,7 +29,7 @@ conda create -n easy_circos -c conda-forge -c defaults -c bioconda -c falmeida -
 conda activate easy_circos
 
 # see help
-plot_circos.sh --help
+plot_circos --help
 
 # quickstart (with test data)
 ## download ecoli genome 1
