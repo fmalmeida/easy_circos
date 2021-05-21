@@ -148,6 +148,9 @@ rm tmp_names.fasta1 ;
 bioawk -c fastx '{ printf $name"\n" }' $FASTA2 > tmp_names.fasta2 ;
 awk -v color2=$FASTA2_COLOR -F'\t' 'NR==FNR{c[$1]++;next};c[$1] > 0 {print $0 "\t" "color="color2}' tmp_names.fasta2 ${RESULTS}/conf/links_concatenated.txt > ${RESULTS}/conf/links_concatenated_colored.txt
 rm tmp_names.fasta2 ;
+
+# now remove intrachr links
+awk -F'\t' 'if ($1 != $4) { print }' ${RESULTS}/conf/links_concatenated_colored.txt > ${RESULTS}/conf/links_concatenated_colored_no_intrachr.txt ;
 }
 
 #############################################################################
@@ -194,7 +197,7 @@ cat << EOF
 
 # Defines unit length for ideogram and tick spacing, referenced
 # using "u" prefix, e.g. 10u
-chromosomes_units = 1000000
+chromosomes_units = 500000
 
 # Show all chromosomes in karyotype file. By default, this is
 # true. If you want to explicitly specify which chromosomes
@@ -238,7 +241,7 @@ label_parallel	 = yes
 	<link>
 		show     = yes
 		ribbon   = no
-		file     = links_concatenated_colored.txt
+		file     = links_concatenated_colored_no_intrachr.txt
 		radius   = 0.8r
 		tickness = 15
 
