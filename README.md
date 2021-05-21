@@ -4,6 +4,16 @@
 
 easy_circos is a simple conda package that aims on rapidly and easily creating minimal circos configuration and plots between two fasta files.
 
+For now, it only has the ability to produce a circos plot showing the GC skew and the links between two fasta files, however, some other implementations are already in mind:
+
+* Add the possibility for plotting custom 2D tracks (if following a defined format)
+* Add the possibility to add texts to show where specific features are located
+* Add the possibility to work with only one FASTA, or more than two
+* Make the inclusion of some types of data optional, so we can add it or not
+* ...
+
+> If you have another idea of implementation flag an issue discussing it (See: [How can you colaborate?](https://github.com/fmalmeida/easy_circos#collaborating))
+
 ## Table of contents
 
 * [Installation](https://github.com/fmalmeida/easy_circos#installation)
