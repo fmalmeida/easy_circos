@@ -35,6 +35,7 @@ Copyright, Felipe Almeida <almeidafmarques@outlook.com>, 2021
  --minid                             Min. percentage id to filter the results of blastn to draw links [Default: 85]
  --linklen                           Min. link (blastn hit) length to display in plot [Default: 5000]
  --show_intrachr                     Tells the program to create a conf file showing intra chr links [Default: false]
+                                     Mandatory if using only one FASTA, otherwise, links will not be shown.
 
  # GC skew config
  --gc_window                         GC skew window size [Default: 5000]
@@ -170,12 +171,14 @@ check_links()
 {
 # get chrs with links
 ## chr source
-CHRS_1=$(cut -f 1 ${RESULTS}/conf/links_concatenated_colored_no_intrachr.txt | sort -u | tr '\n' ';')
+cut -f 1 ${RESULTS}/conf/links_concatenated_colored.txt >> tmp.chrs
 ## chr target
-CHRS_2=$(cut -f 4 ${RESULTS}/conf/links_concatenated_colored_no_intrachr.txt | sort -u | tr '\n' ';')
+cut -f 4 ${RESULTS}/conf/links_concatenated_colored.txt >> tmp.chrs
 
 # export LINE
-export CUSTOM_CHR_LINE="chromosomes = "${CHRS_1}${CHRS_2}
+CHRS=$(cat tmp.chrs | sort -u | tr '\n' ';') ;
+rm tmp.chrs ;
+export CUSTOM_CHR_LINE="chromosomes = "${CHRS} ;
 }
 
 #########################################################
