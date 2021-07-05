@@ -9,6 +9,7 @@ easy_circos is a simple conda package that aims on rapidly and easily creating m
 * [Features](https://github.com/fmalmeida/easy_circos#features)
 * [Installation](https://github.com/fmalmeida/easy_circos#installation)
 * [Documentation](https://github.com/fmalmeida/easy_circos#documentation)
+* [Quickstart](https://github.com/fmalmeida/easy_circos#quickstart)
 * [How can you colaborate?](https://github.com/fmalmeida/easy_circos#collaborating)
 * [Citation](https://github.com/fmalmeida/easy_circos#citation)
 
@@ -34,6 +35,8 @@ Installation is provided via conda.
 conda create -n easy_circos -c conda-forge -c defaults -c bioconda -c falmeida -c anaconda easy_circos
 ```
 
+:fire: Users can use [mamba](https://github.com/mamba-org/mamba) for faster conda installation
+
 ## Documentation
 
 ```bash
@@ -42,6 +45,46 @@ conda activate easy_circos
 
 # see help
 plot_circos --help
+
+[...]
+Simple script to create a circos plot between two FASTA files.
+Copyright, Felipe Almeida <almeidafmarques@outlook.com>, 2021
+
+ Syntax: plot_circos.sh [-h] [--fofn <fasta> --outdir <outdir> --minlen <int> --minid <int>
+                              --linklen <int> --show_intrachr --gc_window <int> --gc_step <int>]
+
+ Options:
+
+ # Help
+ -h/--help                           Print this help
+
+ # Output
+ --outdir                            Path to output directory [Default: ./results]
+
+ # Input file of file names
+ # CSV: fasta path,prefix,color
+ --fofn                              File of file names contatining list of fastas to
+                                     draw circos plot.
+
+ # Input min. length
+ --minlen                            Min size of contigs to consider for plot [Default: 10000]
+
+ # Links (blastn) min. percentage id
+ --minid                             Min. percentage id to filter the results of blastn to draw links [Default: 85]
+ --linklen                           Min. link (blastn hit) length to display in plot [Default: 5000]
+ --show_intrachr                     Tells the program to create a conf file showing intra chr links [Default: false]
+                                     Mandatory if using only one FASTA, otherwise, links will not be shown.
+
+ # GC skew config
+ --gc_window                         GC skew window size [Default: 5000]
+ --gc_step                           GC skew step size [Default: 5000]
+```
+
+## Quickstart
+
+```bash
+# activate env
+conda activate easy_circos
 
 # quickstart (with test data)
 ## download ecoli genome 1
