@@ -374,7 +374,7 @@ case $ARGS in
       shift 2
       ;;
     --fofn)
-      if [ "$2" ]; then
+      if [[ -f "$2" ]]; then
           if [[ -s "$2" && -z "$(tail -c 1 "$2")" ]]
           then
               echo "" > /dev/null ;
@@ -384,7 +384,7 @@ case $ARGS in
           FOFN=$2
           shift 2
       else
-          echo -e '\nERROR: "--fofn" requires an argument\n'
+          echo -e '\nERROR: "--fofn" requires an argument. Check your input.\n'
           exit
       fi
       ;;
