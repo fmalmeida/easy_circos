@@ -12,7 +12,8 @@ cat << EOF
 Simple script to create a circos plot between two FASTA files.
 Copyright, Felipe Almeida <almeidafmarques@outlook.com>, 2021
 
- Syntax: plot_circos.sh [-h] [--fasta1 <fasta> --fasta2 <fasta> --outdir <outdir> --fasta1_prefix <str> --fasta2_prefix <str> --minlen <int> ...]
+ Syntax: plot_circos.sh [-h] [--fofn <fasta> --outdir <outdir> --minlen <int> --minid <int>
+                              --linklen <int> --show_intrachr --gc_window <int> --gc_step <int>]
 
  Options:
 
@@ -22,28 +23,18 @@ Copyright, Felipe Almeida <almeidafmarques@outlook.com>, 2021
  # Output
  --outdir                            Path to output directory [Default: ./results]
 
- # Input files
- --fasta1                            Path to the 1st FASTA file
- --fasta2                            Path to the 2nd FASTA file
-
- # Input files prefixes
- # This will rename the contigs as \${prefix}contigname so you
- # can readily identify the species in the plot. Not required.
- --fasta1_prefix                     Prefix for naming fasta1 contigs when creating karyotypes [Default: ""]
- --fasta2_prefix                     Prefix for naming fasta2 contigs when creating karyotypes [Default: ""]
+ # Input file of file names
+ # CSV: fasta path,prefix,color
+ --fofn                              File of file names contatining list of fastas to
+                                     draw circos plot.
 
  # Input min. length
  --minlen                            Min size of contigs to consider for plot [Default: 10000]
 
- # Input file colors
- # Which color to use for each fasta
- # See Circos accepted colors
- --fasta1_color                      Color for fasta 1 [Default: lorange]
- --fasta2_color                      Color for fasta 2 [Default: blue]
-
  # Links (blastn) min. percentage id
  --minid                             Min. percentage id to filter the results of blastn to draw links [Default: 85]
  --linklen                           Min. link (blastn hit) length to display in plot [Default: 5000]
+ --show_intrachr                     Tells the program to create a conf file showing intra chr links [Default: false]
 
  # GC skew config
  --gc_window                         GC skew window size [Default: 5000]
@@ -57,15 +48,15 @@ EOF
 ### Defaults ###
 ################
 RESULTS="./results" # tmp directory
-FASTA1=""
-FASTA1_PREFIX=""
-FASTA1_COLOR="lorange"
-FASTA2=""
-FASTA2_PREFIX=""
-FASTA2_COLOR="blue"
+FOFN=""
+FASTA=""
+FASTA_PREFIX=""
+FASTA_COLOR=""
 MINLEN=10000
 MINID=85
 MINLINKLEN=5000
+INTRACHR_FILE="links_concatenated_colored_no_intrachr.txt"
+INTRACHR_SHOW="no"
 GCWINDOW=5000
 GCSTEP=5000
 
@@ -80,13 +71,14 @@ mkdir -p $RESULTS
 # create dir for files
 mkdir -p ${RESULTS}/filtered
 
-# filter genome
-name="$(basename $FASTA1)" ;
-$CONDA_PREFIX/bin/perl $CONDA_PREFIX/bin/removesmalls.pl $MINLEN $FASTA1 >>${RESULTS}/filtered/"$name" ;
-export FILTERED_FASTA1=${RESULTS}/filtered/"$name"
-name="$(basename $FASTA2)" ;
-$CONDA_PREFIX/bin/perl $CONDA_PREFIX/bin/removesmalls.pl $MINLEN $FASTA2 >>${RESULTS}/filtered/"$name" ;
-export FILTERED_FASTA2=${RESULTS}/filtered/"$name"
+# filter genomes
+IFS=','
+while read -r FASTA FASTA_PREFIX FASTA_COLOR ; do
+  name="$(basename $FASTA)" ;
+  $CONDA_PREFIX/bin/perl $CONDA_PREFIX/bin/removesmalls.pl $MINLEN $FASTA >> ${RESULTS}/filtered/"$name" ;
+  continue
+done<"$FOFN"
+
 }
 
 ##########################################
@@ -97,11 +89,15 @@ karyotype()
 # create dir
 mkdir -p ${RESULTS}/conf
 
-# for FASTA1
-bioawk -c fastx -v p1=$FASTA1_PREFIX -v color1=$FASTA1_COLOR '{ printf "chr - " substr($name,1) " " p1 substr($name,1) " " "0" " " length($seq) " " color1"\n" }' $FILTERED_FASTA1 >> ${RESULTS}/conf/circos.sequences.txt
-
-# for FASTA2
-bioawk -c fastx -v p2=$FASTA2_PREFIX -v color2=$FASTA2_COLOR '{ printf "chr - " substr($name,1) " " p2 substr($name,1) " " "0" " " length($seq) " " color2"\n" }' $FILTERED_FASTA2 >> ${RESULTS}/conf/circos.sequences.txt
+# write karyotypes
+IFS=','
+while read -r FASTA FASTA_PREFIX FASTA_COLOR ; do
+  name="$(basename $FASTA)" ;
+  FILTERED_FASTA=${RESULTS}/filtered/"$name" ;
+  bioawk -c fastx -v p=$FASTA_PREFIX -v color=$FASTA_COLOR \
+    '{ printf "chr - " substr($name,1) " " p":" substr($name,1) " " "0" " " length($seq) " " color"\n" }' \
+    $FILTERED_FASTA >> ${RESULTS}/conf/circos.sequences.txt ;
+done<"$FOFN"
 }
 
 #############################################
@@ -113,12 +109,12 @@ find_links()
 mkdir -p ${RESULTS}/all_vs_all_blast
 
 # concatenate genomes
-cat $FILTERED_FASTA1 $FILTERED_FASTA2 >> ${RESULTS}/all_vs_all_blast/concatenated_genomes.fasta ;
+cat ${RESULTS}/filtered/* >> ${RESULTS}/all_vs_all_blast/concatenated_genomes.fasta ;
 export CONCAT_FASTA=${RESULTS}/all_vs_all_blast/concatenated_genomes.fasta
 export BLAST_DB=${RESULTS}/all_vs_all_blast/blast_db
 
 # Run blast
-makeblastdb -in $CONCAT_FASTA -dbtype nucl -out $BLAST_DB
+makeblastdb -in $CONCAT_FASTA -dbtype nucl -out $BLAST_DB &> /dev/null ;
 blastn -task blastn -perc_identity $MINID -query $CONCAT_FASTA -db $BLAST_DB \
     -outfmt "6 qseqid qstart qend sseqid sstart send pident length mismatch gapopen evalue bitscore stitle" \
     -out ${RESULTS}/all_vs_all_blast/tmp.blast
@@ -139,19 +135,19 @@ parse_links()
 mkdir -p ${RESULTS}/conf
 
 # Filter blocks with more then N bp hits
-awk -v minlen=$MINLINKLEN '{ if ($8 >= minlen) { print } }' ${RESULTS}/all_vs_all_blast/all_vs_all.blast | cut -f 1,2,3,4,5,6 >> ${RESULTS}/conf/links_concatenated.txt ;
+awk -v minlen=$MINLINKLEN '{ if ($8 >= minlen) { print } }' \
+  ${RESULTS}/all_vs_all_blast/all_vs_all.blast | cut -f 1,2,3,4,5,6 >> ${RESULTS}/conf/links_concatenated.txt ;
 
-# get links comming from contigs of FASTA1 and give it colors
-bioawk -c fastx '{ printf $name"\n" }' $FASTA1 > tmp_names.fasta1 ;
-awk -v color1=$FASTA1_COLOR -F'\t' 'NR==FNR{c[$1]++;next};c[$1] > 0 {print $0 "\t" "color="color1}' tmp_names.fasta1 ${RESULTS}/conf/links_concatenated.txt > ${RESULTS}/conf/links_concatenated_colored.txt
-rm tmp_names.fasta1 ;
+# get links comming from contigs and give it colors
+IFS=','
+while read -r FASTA FASTA_PREFIX FASTA_COLOR ; do
+  bioawk -c fastx '{ printf $name"\n" }' $FASTA > tmp_names.fasta ;
+  awk -v color1=$FASTA_COLOR -F'\t' 'NR==FNR{c[$1]++;next};c[$1] > 0 {print $0 "\t" "color="color1}' \
+    tmp_names.fasta ${RESULTS}/conf/links_concatenated.txt >> ${RESULTS}/conf/links_concatenated_colored.txt
+  rm tmp_names.fasta ;
+done<"$FOFN"
 
-# get links comming from contigs of FASTA2 and give it colors
-bioawk -c fastx '{ printf $name"\n" }' $FASTA2 > tmp_names.fasta2 ;
-awk -v color2=$FASTA2_COLOR -F'\t' 'NR==FNR{c[$1]++;next};c[$1] > 0 {print $0 "\t" "color="color2}' tmp_names.fasta2 ${RESULTS}/conf/links_concatenated.txt > ${RESULTS}/conf/links_concatenated_colored.txt
-rm tmp_names.fasta2 ;
-
-# now remove intrachr links
+# create additional file whithout intrachr links
 awk -F'\t' '{ if ($1 != $4) { print } }' ${RESULTS}/conf/links_concatenated_colored.txt > ${RESULTS}/conf/links_concatenated_colored_no_intrachr.txt ;
 }
 
@@ -189,7 +185,7 @@ gc_skew()
 {
 # exec GCcalc.py
 $CONDA_PREFIX/bin/python3 $CONDA_PREFIX/bin/GCcalc.py -f ${RESULTS}/all_vs_all_blast/concatenated_genomes.fasta -w $GCWINDOW -s $GCSTEP | \
-    cut -f 1,2,3,5 | awk '{ if ($4 > 0) print $0 "\t" "color=blue"; else print $0 "\t" "color=orange"}' > ${RESULTS}/conf/GC_skew.txt
+    cut -f 1,2,3,5 | awk '{ if ($4 > 0) print $0 "\t" "color=dblue"; else print $0 "\t" "color=red"}' > ${RESULTS}/conf/GC_skew.txt
 }
 
 ###########################################
@@ -245,8 +241,8 @@ label_parallel	 = yes
 <links>
 	<link>
 		show     = yes
-		ribbon   = yes
-		file     = links_concatenated_colored_no_intrachr.txt
+		ribbon   = no
+		file     = ${INTRACHR_FILE}
 		radius   = 0.8r
 		tickness = 15
 
@@ -255,7 +251,7 @@ label_parallel	 = yes
 	<rule>
 	 # Do not show intra-chromossome links
    condition  = var(intrachr)
-   show       = no
+   show       = ${INTRACHR_SHOW}
   </rule>
 
 	</rules>
@@ -374,21 +370,18 @@ case $ARGS in
       RESULTS=$2
       shift 2
       ;;
-    --fasta1)
+    --fofn)
       if [ "$2" ]; then
-          FASTA1=$2
+          if [[ -s "$2" && -z "$(tail -c 1 "$2")" ]]
+          then
+              echo "" > /dev/null ;
+          else
+              echo "" >> $2 ;
+          fi
+          FOFN=$2
           shift 2
       else
-          echo -e '\nERROR: "--fasta1" requires an argument\n'
-          exit
-      fi
-      ;;
-    --fasta2)
-      if [ "$2" ]; then
-          FASTA2=$2
-          shift 2
-      else
-          echo -e '\nERROR: "--fasta2" requires an argument\n'
+          echo -e '\nERROR: "--fofn" requires an argument\n'
           exit
       fi
       ;;
@@ -437,41 +430,10 @@ case $ARGS in
           exit
       fi
       ;;
-    --fasta1_prefix)
-      if [ "$2" ]; then
-          FASTA1_PREFIX=$2
-          shift 2
-      else
-          echo -e '\nERROR: "--fasta1_prefix" requires an argument\n'
-          exit
-      fi
-      ;;
-    --fasta2_prefix)
-      if [ "$2" ]; then
-          FASTA2_PREFIX=$2
-          shift 2
-      else
-          echo -e '\nERROR: "--fasta2_prefix" requires an argument\n'
-          exit
-      fi
-      ;;
-    --fasta1_color)
-      if [ "$2" ]; then
-          FASTA1_COLOR=$2
-          shift 2
-      else
-          echo -e '\nERROR: "--fasta1_color" requires an argument\n'
-          exit
-      fi
-      ;;
-    --fasta2_color)
-      if [ "$2" ]; then
-          FASTA2_COLOR=$2
-          shift 2
-      else
-          echo -e '\nERROR: "--fasta2_color" requires an argument\n'
-          exit
-      fi
+    --show_intrachr)
+        INTRACHR_FILE="links_concatenated_colored.txt"
+        INTRACHR_SHOW="yes"
+        shift
       ;;
     *)
       printf "******************************\n"
@@ -484,9 +446,12 @@ done
 ###################
 ### Exec script ###
 ###################
+
+## remove existing results
+rm -rf $RESULTS ;
+
 # Step 1
 echo " # Preparing inputs!"
-rm -rf $RESULTS ;
 filter          ;
 
 # Step 2
@@ -523,7 +488,7 @@ cat << EOF
  All the required files for a minimal circos plot have been produced and stored at ${RESULTS}/conf/.
  Now you can play with the ${RESULTS}/conf/circos.conf file in order to change the plot as you like.
 
- Remember to read the manual in order to understand the conf file.
+ Remember to read the circos manual in order to understand the conf file.
 
  Have fun!
 
