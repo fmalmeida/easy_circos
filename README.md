@@ -32,10 +32,10 @@ Installation is provided via conda.
 
 ```bash
 # Get the conda package
-conda create -n easy_circos -c conda-forge -c defaults -c bioconda -c falmeida -c anaconda easy_circos
+mamba create -n easy_circos -c conda-forge -c bioconda -c falmeida easy_circos
 ```
 
-:fire: Users can use [mamba](https://github.com/mamba-org/mamba) for faster conda installation
+:fire: Users are advised to use [mamba](https://github.com/mamba-org/mamba) since it is faster and better solves perl dependencies.
 
 ## Documentation
 
