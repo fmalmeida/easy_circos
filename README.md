@@ -1,4 +1,4 @@
-![](https://anaconda.org/falmeida/easy_circos/badges/version.svg) ![](https://anaconda.org/falmeida/easy_circos/badges/latest_release_date.svg) ![](https://anaconda.org/falmeida/easy_circos/badges/platforms.svg) ![](https://anaconda.org/falmeida/easy_circos/badges/installer/conda.svg)
+![GitHub release (latest by date)](https://img.shields.io/github/v/release/fmalmeida/easy_circos?style=flat-square) ![](https://anaconda.org/falmeida/easy_circos/badges/version.svg) ![](https://anaconda.org/falmeida/easy_circos/badges/latest_release_date.svg) ![](https://anaconda.org/falmeida/easy_circos/badges/platforms.svg) ![](https://anaconda.org/falmeida/easy_circos/badges/installer/conda.svg)
 
 # Easy (minimal) circos plot
 
