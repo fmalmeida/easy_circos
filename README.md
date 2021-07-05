@@ -56,7 +56,9 @@ wget https://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/005/845/GCF_000005845.2_AS
   gzip -d ecoli_k12.fna.gz
 
 ## run circos plot
-plot_circos --fasta1 ecoli_sakai.fna --fasta2 ecoli_k12.fna
+echo "ecoli_k12.fna,K12,purple" > input.fofn
+echo "ecoli_sakai.fna,SAKAI,lorange" >> input.fofn
+plot_circos --fofn input.fofn
 ```
 
 ## Collaborating
