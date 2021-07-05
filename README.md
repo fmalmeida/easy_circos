@@ -26,7 +26,7 @@ For now, it only has the ability to produce a circos plot showing the GC skew an
 
 ## Installation
 
-Installation is provided via conda.
+## Conda package
 
 > Users are advised to create separate conda environments
 
@@ -37,7 +37,20 @@ mamba create -n easy_circos -c conda-forge -c bioconda -c falmeida easy_circos
 
 :fire: Users are advised to use [mamba](https://github.com/mamba-org/mamba) since it is faster and better solves perl dependencies.
 
+## Docker image
+
+```bash
+# pull and test the image
+docker run --platform linux/amd64 fmalmeida/easy_circos
+```
+
+> Remember to use the parameters `-v` so your files are available to the docker container.
+
+:fire: The "--platform linux/amd64" only tells docker the architecture that the image was built so it emulates the correct one. You can run this exact command in any system architecture.
+
 ## Documentation
+
+> The commands shown here can also be executed with the Docker image.
 
 ```bash
 # activate env
