@@ -21,6 +21,7 @@ requirements:
     - numpy
     - perl-app-cpanminus
     - perl-module-build
+    - blast
   run:
     - perl
     - circos
@@ -30,6 +31,7 @@ requirements:
     - numpy
     - perl-app-cpanminus
     - perl-module-build
+    - blast
 
 about:
   home: "https://github.com/fmalmeida/easy_circos_plot"

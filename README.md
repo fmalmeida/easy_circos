@@ -40,8 +40,11 @@ mamba create -n easy_circos -c conda-forge -c bioconda -c falmeida easy_circos
 ## Docker image
 
 ```bash
-# pull and test the image
-docker run --platform linux/amd64 fmalmeida/easy_circos
+# pull and enter the image
+docker run --platform linux/amd64 -v $(pwd):/work -w /work -it fmalmeida/easy_circos
+
+# run the script from inside the container
+root@c896e9370a2f:/work# plot_circos --help
 ```
 
 > Remember to use the parameters `-v` so your files are available to the docker container.
