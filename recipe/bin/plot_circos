@@ -12,8 +12,9 @@ cat << EOF
 Simple script to create a circos plot between two FASTA files.
 Copyright, Felipe Almeida <almeidafmarques@outlook.com>, 2021
 
- Syntax: plot_circos.sh [-h] [--fofn <fasta> --outdir <outdir> --minlen <int> --minid <int>
-                              --linklen <int> --show_intrachr --gc_window <int> --gc_step <int>]
+ Syntax: plot_circos.sh [-h] [--fofn <file> --outdir <outdir> --minlen <int> --minid <int>
+                              --linklen <int> --show_intrachr --gc_window <int> --gc_step <int>
+                              --labels <file> ]
 
  Options:
 
@@ -41,6 +42,11 @@ Copyright, Felipe Almeida <almeidafmarques@outlook.com>, 2021
  --gc_window                         GC skew window size [Default: 5000]
  --gc_step                           GC skew step size [Default: 5000]
 
+ # Labels config
+ --labels                            TSV file containing the label definitions for plotting. The file must contain
+                                     3 or 4 columns as shown at http://circos.ca/documentation/tutorials/2d_tracks/text_1/lesson,
+                                     "DATA FORMAT" section. The first column must be the name (ID) of the contig.
+
 
 EOF
 }
@@ -50,6 +56,8 @@ EOF
 ################
 RESULTS="./results" # tmp directory
 FOFN=""
+LABELS=""
+LABEL_CONF=""
 FASTA=""
 FASTA_PREFIX=""
 FASTA_COLOR=""
@@ -191,6 +199,39 @@ $CONDA_PREFIX/bin/python3 $CONDA_PREFIX/bin/GCcalc.py -f ${RESULTS}/all_vs_all_b
     cut -f 1,2,3,5 | awk '{ if ($4 > 0) print $0 "\t" "color=dblue"; else print $0 "\t" "color=red"}' > ${RESULTS}/conf/GC_skew.txt
 }
 
+##################################################
+### Function to create feature labels from GFF ###
+##################################################
+gff2labels()
+{
+# load variable
+read -r -d '' LABEL_CONF << EOM
+# Labels
+<plot>
+label_snuggle    = yes
+type             = text
+color            = black
+file             = feature_labels.txt
+
+r0 = 1r
+r1 = 1r+200p
+
+show_links     = yes
+link_dims      = 4p,4p,8p,4p,4p
+link_thickness = 5p
+link_color     = black
+
+label_size   = 30p
+
+padding  = 0p
+rpadding = 0p
+
+</plot>
+EOM
+
+# read gff and create TSV file
+}
+
 ###########################################
 ### Function to create circos.conf file ###
 ###########################################
@@ -265,6 +306,7 @@ label_parallel	 = yes
 # Add plots
 <plots>
 
+# GC Skew
 <plot>
 type        = histogram
 file        = GC_skew.txt
@@ -276,6 +318,8 @@ min         = -0.47826086956521324
 extend_bin  = yes
 orientation = out
 </plot>
+
+${LABEL_CONF}
 
 </plots>
 
@@ -385,6 +429,15 @@ case $ARGS in
           shift 2
       else
           echo -e '\nERROR: "--fofn" requires an argument. Check your input.\n'
+          exit
+      fi
+      ;;
+    --labels)
+      if [[ -f "$2" ]]; then
+          LABELS=$2
+          shift 2
+      else
+          echo -e '\nERROR: "--labels" requires an argument. Check your input.\n'
           exit
       fi
       ;;
