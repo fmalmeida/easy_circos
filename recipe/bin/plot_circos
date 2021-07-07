@@ -202,6 +202,23 @@ case $ARGS in
         export INTRACHR_SHOW="yes"
         shift
       ;;
+    --gff2labels)
+      source ${SCRIPT_DIR}/../src/gff2labels.sh
+      export PATTERN=$2
+      export ATTRIBUTE=$3
+      export COLOR=$4
+      export GFF=$5
+      gff2labels
+      exit
+      ;;
+    --gff2tiles)
+      source ${SCRIPT_DIR}/../src/gff2tiles.sh
+      export PATTERN=$2
+      export COLOR=$3
+      export GFF=$4
+      gff2tiles
+      exit
+      ;;
     *)
       printf "******************************\n"
       printf "Error: Invalid argument $1\n"
