@@ -23,14 +23,14 @@ Copyright, Felipe Almeida <almeidafmarques@outlook.com>, 2021
  -h/--help                           Print this help
 
  # Threads for blastn
- --threads                          Number of threads to use [Default: 1]
+ --threads                           Number of threads to use [Default: 1]
 
  # Output
  --outdir                            Path to output directory [Default: ./results]
 
  # Input file of file names
  # CSV: fasta path,prefix,color
- --fofn                              File of file names contatining list of fastas to
+ --fofn                              File of file names containing list of fastas to
                                      draw circos plot.
 
  # Input min. length
@@ -48,7 +48,7 @@ Copyright, Felipe Almeida <almeidafmarques@outlook.com>, 2021
 
  # Labels config
  --labels                            TSV file containing the label definitions for plotting. The file must contain
-                                     3 or 4 columns as shown at http://circos.ca/documentation/tutorials/2d_tracks/text_1/lesson,
+                                     4 or 5 columns as shown at http://circos.ca/documentation/tutorials/2d_tracks/text_1/lesson,
                                      "DATA FORMAT" section. The first column must be the name (ID) of the contig.
                                      Checkout the "--gff2labels" script (below).
 
