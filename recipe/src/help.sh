@@ -13,8 +13,8 @@ Copyright, Felipe Almeida <almeidafmarques@outlook.com>, 2021
                        --labels <file> --tiles <files> ]
 
   # To use helpful scripts
-  plot_circos [ --gff2labels <PATTERN> <ATTRIBUTE> <COLOR> <GFF> ]
-  plot_circos [ --gff2tiles  <PATTERN> <COLOR> <GFF> ]
+  plot_circos [ --gff2labels <FEATURES> <PATTERN> <ATTRIBUTE> <COLOR> <GFF> ]
+  plot_circos [ --gff2tiles  <FEATURES> <PATTERN> <COLOR> <GFF> ]
 
 
  Options:
@@ -60,16 +60,25 @@ Copyright, Felipe Almeida <almeidafmarques@outlook.com>, 2021
 
 
  # Helpful scripts!
+ # See the examples in our quickstart: HTML PAGE
  --gff2labels                        A useful script that allows you to filter a GFF file and create a "circos label file"
-                                     with desired inputs. Eg. "plot_circos --gff2labels arcA ID red ecoli_k12.gff". This
-                                     command will get each line of the gff that has the "acrA" pattern, and write the
-                                     "circos labels file" using the ID attributes column (name as found in the gff) found
-                                     in the gff, giving these features a "red" color option.
+                                     with desired inputs. Eg. "plot_circos --gff2labels CDS arcA ID red ecoli_k12.gff". This
+                                     command will get each line where the feature (3rd column) is a CDS and that has the
+                                     "acrA" (in the complete line) pattern to write the "circos labels file" using the ID
+                                     attributes column (name as found in the gff) found in the gff, giving these features
+                                     a "red" color option.
+
+                                     For <FEATURES> and <PATTERN> users can use "" to match anything, and "|" to match
+                                     more than one string. E.g. plot_circos --gff2labels "" "acrA|mdt" ID red ecoli_k12.gff
 
  --gff2tiles                         A useful script that allows you to filter a GFF file and create a "circos tiles file"
-                                     with desired inputs. Eg. "plot_circos --gff2tiles arcA red ecoli_k12.gff". This command
-                                     will get each line of the gff that has the "acrA" pattern, and write the "circos tiles file"
-                                     giving these features a "red" color option.
+                                     with desired inputs. Eg. "plot_circos --gff2tiles CDS arcA red ecoli_k12.gff". This
+                                     command will get each line where the feature (3rd column) is a CDS and that has the
+                                     "acrA" (in the complete line) pattern to write the "circos tiles file" giving these
+                                     features a "red" color option.
+
+                                     For <FEATURES> and <PATTERN> users can use "" to match anything, and "|" to match
+                                     more than one string. E.g. plot_circos --gff2tiles "" "acrA|mdt" red ecoli_k12.gff.
 
 
 EOF

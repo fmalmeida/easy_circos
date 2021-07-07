@@ -206,18 +206,20 @@ case $ARGS in
       ;;
     --gff2labels)
       source ${SCRIPT_DIR}/../src/gff2labels.sh
-      export PATTERN=$2
-      export ATTRIBUTE=$3
-      export COLOR=$4
-      export GFF=$5
+      export FEATURES=$2
+      export PATTERN=$3
+      export ATTRIBUTE=$4
+      export COLOR=$5
+      export GFF=$6
       gff2labels
       exit
       ;;
     --gff2tiles)
       source ${SCRIPT_DIR}/../src/gff2tiles.sh
-      export PATTERN=$2
-      export COLOR=$3
-      export GFF=$4
+      export FEATURES=$2
+      export PATTERN=$3
+      export COLOR=$4
+      export GFF=$5
       gff2tiles
       exit
       ;;

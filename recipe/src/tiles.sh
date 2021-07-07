@@ -1,5 +1,10 @@
 tiles()
 {
+
+# copy file
+echo -e "#chr\tstart\tend\toptions\tcomment" > ${RESULTS}/conf/circos_tiles.txt ;
+grep -v "^#" ${TILES} >> ${RESULTS}/conf/circos_tiles.txt
+
 # Create label definition
 read -r -d '' TILES_CONF << EOM
 # Tiles
@@ -7,7 +12,7 @@ read -r -d '' TILES_CONF << EOM
 <plot>
 type              = tile
 layers_overflow   = grow
-file              = ${TILES}
+file              = circos_tiles.txt
 r1                = 0.85r
 r0                = 0.75r
 orientation       = out
