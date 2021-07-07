@@ -21,6 +21,7 @@ export LABELS=""
 export LABELS_CONF=""
 export TILES=""
 export TILES_CONF=""
+export LINKS_RADIUS="0.85r"
 export FASTA=""
 export FASTA_PREFIX=""
 export FASTA_COLOR=""
@@ -146,6 +147,7 @@ case $ARGS in
     --tiles)
       if [[ -f "$2" ]]; then
           export TILES=$2
+          export LINKS_RADIUS="0.7r"
           shift 2
       else
           echo -e '\nERROR: "--tiles" requires an argument. Check your input.\n'

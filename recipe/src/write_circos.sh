@@ -50,7 +50,7 @@ label_parallel	 = yes
 		show     = yes
 		ribbon   = no
 		file     = ${INTRACHR_FILE}
-		radius   = 0.7r
+		radius   = ${LINKS_RADIUS}
 		tickness = 15
 
 	<rules>

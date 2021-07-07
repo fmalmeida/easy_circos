@@ -62,7 +62,10 @@ With that, we can finally create a minimal circos configuration file and plots h
 
 This will create all the circos configuration files and required data files under the ``results`` folder (Can be changed with ``--outdir``). See the created plot:
 
-
+.. image:: images/circos_minimal.svg
+  :width: 400
+  :align: center
+  :alt: Minimal example of circos plot
 
 .. note::
 
