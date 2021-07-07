@@ -63,7 +63,7 @@ conda activate easy_circos
 plot_circos --help
 ```
 
-Additionally, an online documentation and a simple and step-by-step quickstart is provided:
+Additionally, an online documentation and a simple step-by-step quickstart is provided:
 
 * [Online manual >>](https://easy-circos.readthedocs.io/en/latest/)
 * [Step-by-step quickstart >>](https://easy-circos.readthedocs.io/en/latest/quickstart.html)
