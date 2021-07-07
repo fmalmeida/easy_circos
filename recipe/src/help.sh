@@ -7,7 +7,7 @@ Copyright, Felipe Almeida <almeidafmarques@outlook.com>, 2021
 
  Syntax: plot_circos.sh [-h] [--fofn <file> --outdir <outdir> --minlen <int> --minid <int>
                               --linklen <int> --show_intrachr --gc_window <int> --gc_step <int>
-                              --labels <file> ]
+                              --labels <file> --tiles <files> ]
 
  Options:
 
