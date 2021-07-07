@@ -34,7 +34,7 @@ default = 0.005r
 </spacing>
 
 # ideogram position, thickness and fill
-radius           = 0.9r
+radius           = 0.85r
 thickness        = 30p
 fill             = yes
 show_label	     = no
@@ -73,9 +73,9 @@ label_parallel	 = yes
 <plot>
 type        = histogram
 file        = GC_skew.txt
-r1          = 1.0r
-r0          = 0.8r
-thickness   = 2
+r1          = 1r
+r0          = 0.85r
+thickness   = 3
 max         = 0.49999999999999173
 min         = -0.47826086956521324
 extend_bin  = yes

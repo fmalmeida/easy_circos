@@ -8,8 +8,8 @@ read -r -d '' TILES_CONF << EOM
 type              = tile
 layers_overflow   = grow
 file              = ${TILES}
-r1                = 0.8r
-r0                = 0.7r
+r1                = 0.85r
+r0                = 0.75r
 orientation       = out
 
 layers      = 5
