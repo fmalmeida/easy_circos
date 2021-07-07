@@ -65,8 +65,8 @@ plot_circos --help
 
 Additionally, an online documentation and a simple and step-by-step quickstart is provided:
 
-* Online manual
-* Step-by-step quickstart
+* [Online manual >>](https://easy-circos.readthedocs.io/en/latest/)
+* [Step-by-step quickstart >>](https://easy-circos.readthedocs.io/en/latest/quickstart.html)
 
 ## Collaborating
 

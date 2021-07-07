@@ -60,7 +60,7 @@ Copyright, Felipe Almeida <almeidafmarques@outlook.com>, 2021
 
 
  # Helpful scripts!
- # See the examples in our quickstart: HTML PAGE
+ # See the examples in our quickstart: https://easy-circos.readthedocs.io/en/latest/quickstart.html
  --gff2labels                        A useful script that allows you to filter a GFF file and create a "circos label file"
                                      with desired inputs. Eg. "plot_circos --gff2labels CDS arcA ID red ecoli_k12.gff". This
                                      command will get each line where the feature (3rd column) is a CDS and that has the
