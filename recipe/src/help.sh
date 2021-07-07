@@ -2,7 +2,7 @@ Help()
 {
 cat << EOF
 
-Simple script to create a circos plot between two FASTA files.
+Simple script to create a circos plot between FASTA files.
 Copyright, Felipe Almeida <almeidafmarques@outlook.com>, 2021
 
  Syntax:
