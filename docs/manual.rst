@@ -3,26 +3,19 @@
 Manual
 ======
 
+CLI help
+--------
+
 .. code-block:: bash
 
   # Get help in the command line
-  nextflow run fmalmeida/bacannot-compare --help
+  plot_circos --help
 
 Input files
 -----------
 
-This toolkit takes as input a directory containing the results obtained with the `bacannot pipeline <https://github.com/fmalmeida/bacannot>`_ (generally, the ``--outdir`` parameter).
-
-.. warning::
-
-	**This toolkit requires that at least two genome annotations are available.**
-
-.. tip::
-
-	As described in `the bacannot manual <https://bacannot.readthedocs.io/en/latest/outputs.html>`_, each genome annotation will (or must be) be placed in an individual subdirectory inside the main directory. This subdirectories are generally named with the genome prefixes or the ``--prefix`` parameter.
-
 .. list-table::
-   :widths: 20 10 20 30
+   :widths: 15 10 15 50
    :header-rows: 1
 
    * - Arguments
@@ -30,16 +23,26 @@ This toolkit takes as input a directory containing the results obtained with the
      - Default value
      - Description
 
-   * - ``--dir``
+   * - ``--fofn``
      - Y
      - NA
-     - Path to the directory containing the annotation results of the bacannot pipeline.
+     - File of file names (CSV: fasta path,prefix,color) containing list of fastas to draw circos plot.
+
+   * - ``--labels``
+     - N
+     - NA
+     - TSV file containing the label definitions for plotting. The file must contain 4 or 5 columns as shown at http://circos.ca/documentation/tutorials/2d_tracks/text_1/lesson.
+
+   * - ``--tiles``
+     - N
+     - NA
+     - TSV file containing the tile definitions for plotting. The file must contain 3 or 4 columns as shown at http://circos.ca/documentation/tutorials/configuration/data_files.
 
 Output files
 ------------
 
 .. list-table::
-   :widths: 20 10 20 30
+   :widths: 15 10 15 50
    :header-rows: 1
 
    * - Arguments
@@ -49,24 +52,14 @@ Output files
 
    * - ``--outdir``
      - N
-     - By default, they will be placed inside the bacannot main annotation dir.
-     - Path to the directory to place the analyses results.
-
-   * - ``--prefix``
-     - N
-     - BAC-COMPARE-"${DATE}"
-     - The name of the output directory. The results dir will be placed inside the ``--outdir``.
-
-   * - ``--force``
-     - N
-     - False
-     - Force the results to be overwritten when resuming an execution (with ``-resume``). Otherwise, whenever available, nextflow will use the existing results.
+     - ./results
+     - Path to output directory.
 
 Workflow options
 ----------------
 
 .. list-table::
-   :widths: 20 10 10 50
+   :widths: 15 10 15 50
    :header-rows: 1
 
    * - Arguments
@@ -76,64 +69,72 @@ Workflow options
 
    * - ``--threads``
      - N
-     - 2
+     - 1
      - Set the number of threads to be used by the software.
 
-   * - ``--parallel_jobs``
+   * - ``--minlen``
      - N
-     - 1
-     - Number of jobs to run in parallel. Each job can consume up to N threads (--threads). Default: 1.
+     - 10000
+     - Min size of contigs to consider for plot.
 
-   * - ``--all``
+   * - ``--minid``
      - N
-     - False
-     - Activates all analyses.
+     - 85
+     - Min. percentage id to filter the results of blastn to draw links.
 
-   * - ``--prokka``
+   * - ``--linklen``
      - N
-     - False
-     - Activates prokka annotation comparison with multiqc.
+     - 5000
+     - Min. link (blastn hit) length to display in plot.
 
-   * - ``--pangenome``
+   * - ``--show_intrachr``
      - N
-     - False
-     - Activates the pangenome estimation using roary.
+     - false
+     - Tells the program to create a conf file showing intra chr links. Mandatory if using only one FASTA, otherwise, links will not be shown.
 
-   * - ``--decoder``
+   * - ``--gc_window``
      - N
-     - False
-     - Activates the KEGG KO annotation comparison with keggdecoder.
+     - 5000
+     - GC skew window size.
 
-   * - ``--phylogeny``
+   * - ``--gc_step``
      - N
-     - False
-     - Activates the phylogeny estimation using parsnp.
+     - 5000
+     - GC skew step size.
 
-   * - ``--resistance``
-     - N
-     - False
-     - Activates the AMR annotation comparison.
+Helpful scripts
+---------------
 
-   * - ``--kleborate``
-     - N
-     - False
-     - Activates Kleborate/Kaptive analysis (*Klebsiella* genomes).
+gff2labels
+""""""""""
 
-BlastFrost option
------------------
+Activated with ``--gff2labels`` parameter.
 
-This optinal process uses a nucleotide fasta file to query the genomes and produce a presence/absence matrix, as well as a Heatmap of the hits.
+Syntax: ``plot_circos [ --gff2labels <FEATURES> <PATTERN> <ATTRIBUTE> <COLOR> <GFF> ]``.
 
-.. list-table::
-   :widths: 20 10 20 30
-   :header-rows: 1
+A useful script that allows you to filter a GFF file and create a "circos label file" with desired inputs. Eg. ``plot_circos --gff2labels CDS arcA ID red ecoli_k12.gff``.
 
-   * - Arguments
-     - Required
-     - Default value
-     - Description
+This command will get each line where the feature (3rd column) is a CDS and that has the "acrA" (in the complete line) pattern to write the "circos labels file" using the ID attributes column (name as found in the gff) found in the gff, giving these features a "red" color option.
 
-   * - ``--blastfrost_query``
-     - N
-     - NA
-     - A nucleotide fasta file containing a list of query genes to be searched in the genomes.
+.. tip::
+
+  For <FEATURES> and <PATTERN> users can use "" to match anything, and "|" to match more than one string. E.g. ``plot_circos --gff2tiles "" "acrA|mdt" red ecoli_k12.gff``.
+
+For a better understanding see the :ref:`quickstart`.
+
+gff2tiles
+"""""""""
+
+Activated with ``--gff2tiles`` parameter.
+
+Syntax: ``plot_circos [ --gff2tiles  <FEATURES> <PATTERN> <COLOR> <GFF> ]``.
+
+A useful script that allows you to filter a GFF file and create a "circos tiles file" with desired inputs. Eg. ``plot_circos --gff2tiles CDS arcA red ecoli_k12.gff``.
+
+This command will get each line where the feature (3rd column) is a CDS and that has the "acrA" (in the complete line) pattern to write the "circos tiles file" giving these features a "red" color option.
+
+.. tip::
+
+  For <FEATURES> and <PATTERN> users can use "" to match anything, and "|" to match more than one string. E.g. ``plot_circos --gff2tiles "" "acrA|mdt" red ecoli_k12.gff``.
+
+For a better understanding see the :ref:`quickstart`.
