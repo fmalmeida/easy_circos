@@ -110,22 +110,20 @@ Let's get the GFF annotation file for both genomes:
 Create text labels
 """"""""""""""""""
 
-For creating text labels we provide an script that is called as:
+For creating text labels we provide an script that is executed as:
 
 * ``plot_circos [ --gff2labels <FEATURES> <PATTERN> <ATTRIBUTE> <COLOR> <GFF> ]``
 
   + <FEATURES> --> select GFF files that has this string as features (3rd column).
   + <PATTERN> --> select GFF lines that have this pattern.
-  + <ATTRIBUTE> --> use the value of this key from the GFF attributes columns (9th column)
+  + <ATTRIBUTE> --> use the value of this key from the GFF attributes columns (9th column) as label
   + <COLOR> --> give this labels the following color
   + <GFF> --> use this GFF
 
 .. note::
 
   For <FEATURES> and <PATTERN> users can use "" to match anything, and "|" to match
-  more than one string.
-
-  E.g. ``plot_circos --gff2labels "" "acrA|mdt" ID red ecoli_k12.gff``.
+  more than one string. E.g. ``plot_circos --gff2labels "" "acrA|mdt" ID red ecoli_k12.gff``.
 
 Thus, to create a circos compliant text label file we can run:
 
@@ -134,14 +132,14 @@ Thus, to create a circos compliant text label file we can run:
    # Sakai GFF features
    # search all lines with feature type "CDS" (3rd column)
    # all lines that have the pattern "resistance"
-   # getting the value of the "gene" key in the 9th column
+   # getting the value of the "gene" key in the 9th column as label
    # creating text label colors as "black"
    plot_circos --gff2labels CDS resistance gene black ecoli_sakai.gff > circos_labels.txt
 
    # K12 GFF features
    # search all lines with feature type "rRNA" (3rd column)
    # any line related to rRNA features, using "" as pattern
-   # getting the value of the "ID" key in the 9th column
+   # getting the value of the "ID" key in the 9th column as label
    # creating text label colors as "vdred"
    plot_circos --gff2labels rRNA "" ID vdred ecoli_k12.gff >> circos_labels.txt
 
@@ -163,7 +161,7 @@ The file must look like this:
 Create tiles
 """"""""""""
 
-For creating circos tiles we provide an script that is called as:
+For creating circos tiles we provide an script that is executed as:
 
 * ``plot_circos [ --gff2tiles  <FEATURES> <PATTERN> <COLOR> <GFF> ]``
 
@@ -235,4 +233,4 @@ This will create all the circos configuration files and required data files unde
 Takeaway notes
 --------------
 
-Under the ``{--outdir}/conf`` file you will have all the circos configuration plots. With that, you can further customize and increment the plot as you desire. For that, you must understand circos conf files. `See their manual <http://circos.ca/documentation/tutorials/configuration/configuration_files/>`_
+Under the ``results/conf`` file you will have all the circos configuration plots. With that, you can further customize and increment the plot as you desire. For that, you must understand circos conf files. `See their manual <http://circos.ca/documentation/tutorials/configuration/configuration_files/>`_

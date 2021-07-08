@@ -65,7 +65,7 @@ Copyright, Felipe Almeida <almeidafmarques@outlook.com>, 2021
                                      with desired inputs. Eg. "plot_circos --gff2labels CDS arcA ID red ecoli_k12.gff". This
                                      command will get each line where the feature (3rd column) is a CDS and that has the
                                      "acrA" (in the complete line) pattern to write the "circos labels file" using the ID
-                                     attributes column (name as found in the gff) found in the gff, giving these features
+                                     attributes column as label (string as found in the gff), giving these features
                                      a "red" color option.
 
                                      For <FEATURES> and <PATTERN> users can use "" to match anything, and "|" to match
