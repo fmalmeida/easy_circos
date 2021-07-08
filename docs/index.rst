@@ -23,6 +23,12 @@ For now, it can create a circos plot with:
 
 .. toctree::
    :hidden:
+   :caption: Home
+
+   self
+
+.. toctree::
+   :hidden:
    :caption: Kickoff
 
    quickstart
