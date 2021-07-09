@@ -73,7 +73,22 @@ exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
 #html_theme_path = jupyter_sphinx_theme.get_html_theme_path()
 
 # --- karma ---
-html_theme = "karma_sphinx_theme"
+#html_theme = "karma_sphinx_theme"
+
+# --- material ---
+html_theme = "sphinx_material"
+# Material theme options (see theme.conf for more information)
+html_theme_options = {
+    # Visible levels of the global TOC; -1 means unlimited
+    'globaltoc_depth': 2,
+    # If False, expand all TOC entries
+    'globaltoc_collapse': True,
+    # If True, show hidden TOC entries
+    'globaltoc_includehidden': True,
+}
+html_sidebars = {
+    "**": ["globaltoc.html"]
+}
 
 # --- custom css ---
 html_title       = project
