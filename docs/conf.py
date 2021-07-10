@@ -79,15 +79,30 @@ exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
 html_theme = "sphinx_material"
 # Material theme options (see theme.conf for more information)
 html_theme_options = {
+
+    # Set the color and the accent color
+    # Primary color. Options are red, pink, purple, deep-purple, indigo, blue, light-blue, cyan, teal, green, light-green, lime, yellow, amber, orange, deep-orange, brown, grey, blue-grey, and white.
+    'color_primary': 'brown',
+    #Accent color. Options are red, pink, purple, deep-purple, indigo, blue, light-blue, cyan, teal, green, light-green, lime, yellow, amber, orange, and deep-orange.
+    'color_accent': 'orange',
+
     # Visible levels of the global TOC; -1 means unlimited
-    'globaltoc_depth': 2,
+    'globaltoc_depth': 1,
     # If False, expand all TOC entries
     'globaltoc_collapse': True,
     # If True, show hidden TOC entries
     'globaltoc_includehidden': True,
+
+    # logo
+    'logo_icon': "book",
+
+    # repo info
+    "repo_url": "https://github.com/fmalmeida/easy_circos",
+    "repo_name": "easy_circos",
+    "repo_type": "github",
 }
 html_sidebars = {
-    "**": ["globaltoc.html"]
+    "**": ["globaltoc.html", "localtoc.html", "searchbox.html"]
 }
 
 # --- custom css ---
