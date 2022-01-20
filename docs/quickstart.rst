@@ -121,7 +121,7 @@ For creating text labels we provide an script that is executed as:
    * - Option
      - Description
 
-   * - ``<FEATURES>`
+   * - ``<FEATURES>``
      - select GFF lines that has this string as features (3rd column).
    
    * - ``<PATTERN>``
@@ -188,7 +188,7 @@ For creating circos tiles we provide an script that is executed as:
    * - Option
      - Description
 
-   * - ``<FEATURES>`
+   * - ``<FEATURES>``
      - select GFF lines that has this string as features (3rd column).
    
    * - ``<PATTERN>``
