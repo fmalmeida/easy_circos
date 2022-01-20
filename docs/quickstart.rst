@@ -114,18 +114,34 @@ For creating text labels we provide an script that is executed as:
 
 * ``plot_circos [ --gff2labels <FEATURES> <PATTERN> <ATTRIBUTE> <COLOR> <GFF> ]``
 
-  + <FEATURES> --> select GFF files that has this string as features (3rd column).
-  + <PATTERN> --> select GFF lines that have this pattern.
-  + <ATTRIBUTE> --> use the value of this key from the GFF attributes columns (9th column) as label
-  + <COLOR> --> give this labels the following color
-  + <GFF> --> use this GFF
+.. list-table::
+   :widths: 25 75
+   :header-rows: 1
+
+   * - Option
+     - Description
+
+   * - ``<FEATURES>`
+     - select GFF lines that has this string as features (3rd column).
+   
+   * - ``<PATTERN>``
+     - select GFF lines that have this pattern (anywhere).
+   
+   * - ``<ATTRIBUTE>``
+     - use the value of this key from the GFF attributes columns (9th column) as the features's labels
+   
+   * - ``<COLOR>``
+     - give these features the following color
+   
+   * - ``<GFF>``
+     - the GFF file to parse
 
 .. note::
 
-  For <FEATURES> and <PATTERN> users can use "" to match anything, and "|" to match
+  For <FEATURES> and <PATTERN> users can use ``""`` to match anything, and ``"|"`` to match
   more than one string. E.g. ``plot_circos --gff2labels "" "acrA|mdt" ID red ecoli_k12.gff``.
 
-Thus, to create a circos compliant text label file we can run:
+Thus, to create a circos-compliant text label file we can run:
 
 .. code-block:: bash
 
@@ -165,14 +181,28 @@ For creating circos tiles we provide an script that is executed as:
 
 * ``plot_circos [ --gff2tiles  <FEATURES> <PATTERN> <COLOR> <GFF> ]``
 
-  + <FEATURES> --> select GFF files that has this string as features (3rd column).
-  + <PATTERN> --> select GFF lines that have this pattern
-  + <COLOR> --> give this labels the following color
-  + <GFF> --> use this GFF
+.. list-table::
+   :widths: 25 75
+   :header-rows: 1
+
+   * - Option
+     - Description
+
+   * - ``<FEATURES>`
+     - select GFF lines that has this string as features (3rd column).
+   
+   * - ``<PATTERN>``
+     - select GFF lines that have this pattern (anywhere).
+   
+   * - ``<COLOR>``
+     - give these features the following color
+   
+   * - ``<GFF>``
+     - the GFF file to parse
 
 .. tip::
 
-  For <FEATURES> and <PATTERN> users can use "" to match anything, and "|" to match
+  For <FEATURES> and <PATTERN> users can use ``""`` to match anything, and ``"|"`` to match
   more than one string. E.g. ``plot_circos --gff2tiles "" "acrA|mdt" red ecoli_k12.gff``.
 
 We will create the tiles for the same features that we used for the labels. Just to keep it simple. But, we could create for any feature. Thus, to create our circos compliant tiles file for the same features we can run:
