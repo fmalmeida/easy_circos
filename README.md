@@ -32,10 +32,10 @@ For now, it can create a circos plot with:
 
 ```bash
 # Get the conda package
-mamba create -n easy_circos -c conda-forge -c bioconda -c falmeida easy_circos
+conda create -n easy_circos -c conda-forge -c bioconda -c falmeida easy_circos
 ```
 
-:fire: Users are advised to use [mamba](https://github.com/mamba-org/mamba) since it is faster and better solves perl dependencies.
+:fire: Users are advised to use **[conda](https://docs.conda.io/en/latest/)** instead of [mamba](https://github.com/mamba-org/mamba) since it has not been properly solving the perl dependencies lately 🤔
 
 ## Docker image
 
