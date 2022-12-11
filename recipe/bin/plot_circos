@@ -32,6 +32,8 @@ export INTRACHR_FILE="links_concatenated_colored_no_intrachr.txt"
 export INTRACHR_SHOW="no"
 export GCWINDOW=5000
 export GCSTEP=5000
+export BACANNOT="no"
+export SKIP_LINKS="no"
 
 ######################################
 ### Function to filter FASTA files ###
@@ -82,6 +84,7 @@ source ${SCRIPT_DIR}/../src/tiles.sh
 ### Function to create circos.conf file ###
 ###########################################
 source ${SCRIPT_DIR}/../src/write_circos.sh
+source ${SCRIPT_DIR}/../src/write_circos_bacannot.sh
 
 ###############################
 ### Function to plot circos ###
@@ -222,6 +225,14 @@ case $ARGS in
       export GFF=$5
       gff2tiles
       exit
+      ;;
+    --bacannot)
+      export BACANNOT="yes"
+      shift
+      ;;
+    --skip_links)
+      export SKIP_LINKS="yes"
+      shift
       ;;
     *)
       printf "******************************\n"

@@ -1,4 +1,4 @@
-write_circos()
+write_circos_bacannot()
 {
 cat << EOF
 # MINIMUM CIRCOS CONFIGURATION
@@ -37,44 +37,97 @@ default = 0.005r
 radius           = 0.85r
 thickness        = 30p
 fill             = yes
-show_label	     = no
+show_label	     = yes
 label_font	     = default
 label_size	     = 40
-label_radius	   = 1r + 75p
+label_radius	 = 1r + 100p
 label_parallel	 = yes
 
 </ideogram>
 
-<links>
-	<link>
-		show     = yes
-		ribbon   = no
-		file     = ${INTRACHR_FILE}
-		radius   = ${LINKS_RADIUS}
-		tickness = 15
-
-	<rules>
-
-	<rule>
-	# Do not show intra-chromossome links
-	condition  = var(intrachr)
-	show       = ${INTRACHR_SHOW}
-	</rule>
-
-	</rules>
-
-	</link>
-</links>
-
 # Add plots
 <plots>
 
+#
+# forward features
+#
+<plot>
+type              = tile
+layers_overflow   = grow
+file              = forward_features.txt
+r1                = 1r
+r0                = 0.85r
+orientation       = out
+layers            = 5
+margin            = 0.02u
+thickness         = 15
+padding           = 8
+stroke_thickness  = 1
+stroke_color      = grey # TODO
+</plot>
+
+#
+# reverse features
+#
+<plot>
+type              = tile
+layers_overflow   = grow
+file              = reverse_features.txt
+r1                = 0.85r
+r0                = 0.75r
+orientation       = out
+layers            = 5
+margin            = 0.02u
+thickness         = 15
+padding           = 8
+stroke_thickness  = 1
+stroke_color      = grey # TODO
+</plot>
+
+#
+# rRNA features
+#
+<plot>
+type              = tile
+layers_overflow   = grow
+file              = rrna.txt
+r1                = 0.75r
+r0                = 0.65r
+orientation       = out
+layers            = 5
+margin            = 0.02u
+thickness         = 15
+padding           = 8
+stroke_thickness  = 1
+stroke_color      = grey # TODO
+</plot>
+
+#
+# tRNA features
+#
+<plot>
+type              = tile
+layers_overflow   = grow
+file              = trna.txt
+r1                = 0.65r
+r0                = 0.55r
+orientation       = out
+layers            = 5
+margin            = 0.02u
+thickness         = 15
+padding           = 8
+stroke_thickness  = 1
+stroke_color      = grey # TODO
+</plot>
+
+#
 # GC Skew
+#
 <plot>
 type        = histogram
 file        = GC_skew.txt
-r1          = 1r
-r0          = 0.85r
+r1          = 0.55r
+r0          = 0.35r
 thickness   = 3
 max         = 0.49999999999999173
 min         = -0.47826086956521324
@@ -82,9 +135,25 @@ extend_bin  = yes
 orientation = out
 </plot>
 
-${LABELS_CONF}
-
-${TILES_CONF}
+#
+# Labels
+# to understand it more read: http://circos.ca/documentation/tutorials/2d_tracks/text_1/lesson
+#
+<plot>
+label_snuggle    = yes
+type             = text
+color            = black
+file             = bacannot_labels.txt
+r0               = 1r
+r1               = 1r+500p
+show_links       = yes
+link_dims        = 4p,4p,8p,4p,4p
+link_thickness   = 5p
+link_color       = black
+label_size       = 30p
+padding          = 0p
+rpadding         = 0p
+</plot>
 
 </plots>
 

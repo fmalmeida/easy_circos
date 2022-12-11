@@ -12,9 +12,15 @@ workflow()
   karyotype       ;
 
   # Step 3
+  if [ "$SKIP_LINKS" = "no" ]
+  then
   echo " # Finding links (all vs all blastn)!"
   find_links      ;
   parse_links     ;
+  else
+  echo " # Skipping links (all vs all blastn)!"
+  empty_links     ;
+  fi
 
   # Step 4
   echo " # Removing duplicate lines in conf files!"
@@ -47,11 +53,19 @@ workflow()
 
   # Step 6
   echo " # Wrinting circos conf file!"
-  write_circos > ${RESULTS}/conf/circos.conf ;
+  if [ "$BACANNOT" == "no" ]
+  then
+  write_circos          > ${RESULTS}/conf/circos.conf ;
+  else
+  write_circos_bacannot > ${RESULTS}/conf/circos.conf ;
+  fi
 
   # Step 7
+  if [ "$BACANNOT" == "no" ]
+  then
   echo " # Plotting circos!"
   plot_circos     ;
+  fi
 
   # Bye
   echo ${BYE}

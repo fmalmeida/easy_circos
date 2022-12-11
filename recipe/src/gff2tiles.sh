@@ -1,6 +1,6 @@
 gff2tiles()
 {
-  # use awk to parse gff and create labels based on user desire
+  # use awk to parse gff and create tiles based on user desire
   echo -e "#chr\tstart\tend\toptions\tcomment"
   awk \
     -v pattern="$PATTERN" \

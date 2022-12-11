@@ -19,3 +19,8 @@ done<"$FOFN"
 # create additional file whithout intrachr links
 awk -F'\t' '{ if ($1 != $4) { print } }' ${RESULTS}/conf/links_concatenated_colored.txt > ${RESULTS}/conf/links_concatenated_colored_no_intrachr.txt ;
 }
+
+empty_links()
+{
+  touch ${RESULTS}/conf/links_concatenated_colored.txt ${RESULTS}/conf/links_concatenated_colored_no_intrachr.txt 
+}
