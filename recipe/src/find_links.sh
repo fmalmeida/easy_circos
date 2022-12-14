@@ -4,8 +4,8 @@ find_links()
 mkdir -p ${RESULTS}/all_vs_all_blast
 
 # concatenate genomes
-cat ${RESULTS}/filtered/* >> ${RESULTS}/all_vs_all_blast/concatenated_genomes.fasta ;
-export CONCAT_FASTA=${RESULTS}/all_vs_all_blast/concatenated_genomes.fasta
+cat ${RESULTS}/filtered/* >> ${RESULTS}/concatenated_genomes.fasta ;
+export CONCAT_FASTA=${RESULTS}/concatenated_genomes.fasta
 export BLAST_DB=${RESULTS}/all_vs_all_blast/blast_db
 
 # Run blast
