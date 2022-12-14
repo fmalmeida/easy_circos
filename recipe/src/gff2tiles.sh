@@ -18,5 +18,5 @@ gff2tiles()
           print $1,$4,$5,"color="color_val,"# attributes: "s
         } ;
       }
-    }' $GFF
+    }' <( sed 's/ /__/g' $GFF )
 }
