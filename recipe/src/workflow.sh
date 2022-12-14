@@ -25,7 +25,14 @@ workflow()
   # Step 4
   echo " # Removing duplicate lines in conf files!"
   dedup           ;
+  if [ "$SKIP_LINKS" = "no" ]
+  then
   check_links     ;
+  export DEFAULT_LINE="chromosomes_display_default = no"
+  else
+  export DEFAULT_LINE="chromosomes_display_default = yes"
+  export CUSTOM_CHR_LINE=""
+  fi
 
   # Step 5
   echo " # Computing GC Skew!"

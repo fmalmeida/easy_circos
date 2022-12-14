@@ -10,7 +10,7 @@ chromosomes_units = 500000
 # Show all chromosomes in karyotype file. By default, this is
 # true. If you want to explicitly specify which chromosomes
 # to draw, set this to 'no' and use the 'chromosomes' parameter.
-chromosomes_display_default = no
+${DEFAULT_LINE}
 ${CUSTOM_CHR_LINE}
 
 # Chromosome name, size and color definition
