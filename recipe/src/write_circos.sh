@@ -33,14 +33,20 @@ auto_alpha_steps* = 10
 default = 0.005r
 </spacing>
 
+#
 # ideogram position, thickness and fill
-radius           = 0.85r
-thickness        = 30p
+#
+radius           = 0.8r
+thickness        = 15p
 fill             = yes
+stroke_color     = dgrey
+stroke_thickness = 2p
 show_label	     = no
+show_bands       = yes
+fill_bands       = yes
 label_font	     = default
-label_size	     = 40
-label_radius	   = 1r + 75p
+label_size	     = 30
+label_radius	 = 1r + 75p
 label_parallel	 = yes
 
 </ideogram>

@@ -33,14 +33,20 @@ auto_alpha_steps* = 10
 default = 0.005r
 </spacing>
 
+#
 # ideogram position, thickness and fill
-radius           = 0.85r
-thickness        = 30p
+#
+radius           = 0.8r
+thickness        = 15p
 fill             = yes
-show_label	     = yes
+stroke_color     = dgrey
+stroke_thickness = 2p
+show_label	     = no
+show_bands       = yes
+fill_bands       = yes
 label_font	     = default
-label_size	     = 40
-label_radius	 = 1r + 100p
+label_size	     = 30
+label_radius	 = 1r + 75p
 label_parallel	 = yes
 
 </ideogram>
@@ -53,17 +59,17 @@ label_parallel	 = yes
 #
 <plot>
 type              = tile
-layers_overflow   = grow
+layers_overflow   = collapse
 file              = forward_features.txt
-r1                = 1r
-r0                = 0.85r
+r1                = 1.000r
+r0                = 0.930r
 orientation       = out
-layers            = 5
-margin            = 0.02u
+layers            = 1
+margin            = 0.01u
 thickness         = 15
 padding           = 8
-stroke_thickness  = 1
-stroke_color      = grey # TODO
+stroke_color      = black
+stroke_thickness  = 0
 </plot>
 
 #
@@ -71,17 +77,17 @@ stroke_color      = grey # TODO
 #
 <plot>
 type              = tile
-layers_overflow   = grow
+layers_overflow   = collapse
 file              = reverse_features.txt
-r1                = 0.85r
-r0                = 0.75r
+r1                = 0.930r
+r0                = 0.860r
 orientation       = out
-layers            = 5
-margin            = 0.02u
+layers            = 1
+margin            = 0.01u
 thickness         = 15
 padding           = 8
-stroke_thickness  = 1
-stroke_color      = grey # TODO
+stroke_color      = dgreen
+stroke_thickness  = 0
 </plot>
 
 #
@@ -89,17 +95,17 @@ stroke_color      = grey # TODO
 #
 <plot>
 type              = tile
-layers_overflow   = grow
+layers_overflow   = collapse
 file              = rrna.txt
-r1                = 0.75r
-r0                = 0.65r
+r1                = 0.860r
+r0                = 0.790r
 orientation       = out
-layers            = 5
-margin            = 0.02u
+layers            = 1
+margin            = 0.01u
 thickness         = 15
 padding           = 8
-stroke_thickness  = 1
-stroke_color      = grey # TODO
+stroke_color      = dorange
+stroke_thickness  = 0
 </plot>
 
 #
@@ -107,17 +113,59 @@ stroke_color      = grey # TODO
 #
 <plot>
 type              = tile
-layers_overflow   = grow
+layers_overflow   = collapse
 file              = trna.txt
-r1                = 0.65r
-r0                = 0.55r
+r1                = 0.790r
+r0                = 0.720r
 orientation       = out
-layers            = 5
-margin            = 0.02u
+layers            = 1
+margin            = 0.01u
 thickness         = 15
 padding           = 8
-stroke_thickness  = 1
-stroke_color      = grey # TODO
+stroke_color      = dpurple
+stroke_thickness  = 0
+</plot>
+
+#
+# Labels
+# to understand it more read: http://circos.ca/documentation/tutorials/2d_tracks/text_1/lesson
+#
+<plot>
+label_snuggle    = no
+type             = text
+color            = black
+file             = bacannot_labels.txt
+r0               = 0.600r
+r1               = 0.720r
+layers           = 1
+orientation      = out
+layers_overflow  = collapse
+margin           = 0.02u
+show_links       = no
+# link_dims        = 4p,4p,8p,4p,4p
+# link_thickness   = 5p
+link_color       = black
+label_size       = 20p
+padding          = 0p
+rpadding         = 0p
+</plot>
+
+#
+# Mobile Genetic Elements
+#
+<plot>
+type             = tile
+file             = mges.txt
+r1               = 0.550r
+r0               = 0.500r
+orientation      = center
+layers           = 1
+margin           = 0.01u
+thickness        = 40.0
+padding          = 1
+stroke_color     = black
+stroke_thickness = 0
+layers_overflow  = collapse
 </plot>
 
 #
@@ -133,26 +181,6 @@ max         = 0.49999999999999173
 min         = -0.47826086956521324
 extend_bin  = yes
 orientation = out
-</plot>
-
-#
-# Labels
-# to understand it more read: http://circos.ca/documentation/tutorials/2d_tracks/text_1/lesson
-#
-<plot>
-label_snuggle    = yes
-type             = text
-color            = black
-file             = bacannot_labels.txt
-r0               = 1r
-r1               = 1r+500p
-show_links       = yes
-link_dims        = 4p,4p,8p,4p,4p
-link_thickness   = 5p
-link_color       = black
-label_size       = 30p
-padding          = 0p
-rpadding         = 0p
 </plot>
 
 </plots>

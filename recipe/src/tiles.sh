@@ -11,7 +11,7 @@ read -r -d '' TILES_CONF << EOM
 # to understand its configuration read: http://circos.ca/documentation/tutorials/2d_tracks/tiles/configuration
 <plot>
 type              = tile
-layers_overflow   = grow
+layers_overflow   = collapse
 file              = circos_tiles.txt
 r1                = 0.85r
 r0                = 0.75r
