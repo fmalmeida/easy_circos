@@ -13,17 +13,17 @@ To keep things simple and reproducible, let's work with the reference *E. coli* 
 
 .. code-block:: bash
 
-   ## download ecoli genome Sakai
-   wget \
-    https://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/008/865/GCF_000008865.2_ASM886v2/GCF_000008865.2_ASM886v2_genomic.fna.gz \
-    -O ecoli_sakai.fna.gz && \
-   gzip -d ecoli_sakai.fna.gz
+    ## download ecoli genome Sakai
+    wget \
+      https://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/008/865/GCF_000008865.2_ASM886v2/GCF_000008865.2_ASM886v2_genomic.fna.gz \
+      -O ecoli_sakai.fna.gz && \
+    gzip -d ecoli_sakai.fna.gz
 
-   ## download ecoli genome K12
-   wget \
-    https://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/005/845/GCF_000005845.2_ASM584v2/GCF_000005845.2_ASM584v2_genomic.fna.gz \
-    -O ecoli_k12.fna.gz && \
-  gzip -d ecoli_k12.fna.gz
+    ## download ecoli genome K12
+    wget \
+      https://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/005/845/GCF_000005845.2_ASM584v2/GCF_000005845.2_ASM584v2_genomic.fna.gz \
+      -O ecoli_k12.fna.gz && \
+    gzip -d ecoli_k12.fna.gz
 
 Prepare input
 """""""""""""
@@ -36,15 +36,15 @@ We can prepare this csv with:
 
 .. code-block:: bash
 
-   echo "ecoli_k12.fna,K12,purple" > input.fofn
-   echo "ecoli_sakai.fna,SAKAI,lorange" >> input.fofn
+    echo "ecoli_k12.fna,K12,purple" > input.fofn
+    echo "ecoli_sakai.fna,SAKAI,lorange" >> input.fofn
 
 The file must look like this (input.fofn):
 
 .. code-block:: bash
 
-   ecoli_k12.fna,K12,purple
-   ecoli_sakai.fna,SAKAI,lorange
+    ecoli_k12.fna,K12,purple
+    ecoli_sakai.fna,SAKAI,lorange
 
 Create the circos plot
 """"""""""""""""""""""
@@ -58,8 +58,8 @@ With that, we can finally create a minimal circos configuration file and plots h
 
 .. code-block:: bash
 
-   # run easy_circos
-   plot_circos --fofn input.fofn
+    # run easy_circos
+    plot_circos --fofn input.fofn
 
 This will create all the circos configuration files and required data files under the ``results`` folder (Can be changed with ``--outdir``). See the created plot:
 

@@ -10,7 +10,7 @@ chromosomes_units = 500000
 # Show all chromosomes in karyotype file. By default, this is
 # true. If you want to explicitly specify which chromosomes
 # to draw, set this to 'no' and use the 'chromosomes' parameter.
-chromosomes_display_default = no
+${DEFAULT_LINE}
 ${CUSTOM_CHR_LINE}
 
 # Chromosome name, size and color definition
@@ -33,14 +33,20 @@ auto_alpha_steps* = 10
 default = 0.005r
 </spacing>
 
+#
 # ideogram position, thickness and fill
-radius           = 0.85r
-thickness        = 30p
+#
+radius           = 0.8r
+thickness        = 15p
 fill             = yes
+stroke_color     = dgrey
+stroke_thickness = 2p
 show_label	     = no
+show_bands       = yes
+fill_bands       = yes
 label_font	     = default
-label_size	     = 40
-label_radius	   = 1r + 75p
+label_size	     = 30
+label_radius	 = 1r + 75p
 label_parallel	 = yes
 
 </ideogram>
@@ -56,10 +62,10 @@ label_parallel	 = yes
 	<rules>
 
 	<rule>
-	 # Do not show intra-chromossome links
-   condition  = var(intrachr)
-   show       = ${INTRACHR_SHOW}
-  </rule>
+	# Do not show intra-chromossome links
+	condition  = var(intrachr)
+	show       = ${INTRACHR_SHOW}
+	</rule>
 
 	</rules>
 

@@ -19,3 +19,13 @@ done<"$FOFN"
 # create additional file whithout intrachr links
 awk -F'\t' '{ if ($1 != $4) { print } }' ${RESULTS}/conf/links_concatenated_colored.txt > ${RESULTS}/conf/links_concatenated_colored_no_intrachr.txt ;
 }
+
+empty_links()
+{
+  # concatenate genomes
+  cat ${RESULTS}/filtered/* >> ${RESULTS}/concatenated_genomes.fasta ;
+  export CONCAT_FASTA=${RESULTS}/concatenated_genomes.fasta
+  export BLAST_DB=${RESULTS}/all_vs_all_blast/blast_db
+  
+  touch ${RESULTS}/conf/links_concatenated_colored.txt ${RESULTS}/conf/links_concatenated_colored_no_intrachr.txt 
+}

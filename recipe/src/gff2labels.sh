@@ -25,5 +25,5 @@ gff2labels()
           }
         } ;
       }
-    }' $GFF
+    }' <( sed 's/ /__/g' $GFF )
 }
