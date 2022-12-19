@@ -163,7 +163,7 @@ layers           = 1
 margin           = 0.01u
 thickness        = 40.0
 padding          = 1
-stroke_color     = black
+stroke_color     = dred
 stroke_thickness = 0
 layers_overflow  = collapse
 </plot>
