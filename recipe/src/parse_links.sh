@@ -5,7 +5,7 @@ mkdir -p ${RESULTS}/conf
 
 # Filter blocks with more then N bp hits
 awk -v minlen=$MINLINKLEN '{ if ($8 >= minlen) { print } }' \
-  ${RESULTS}/all_vs_all_blast/all_vs_all.blast | cut -f 1,2,3,4,5,6 >> ${RESULTS}/conf/links_concatenated.txt ;
+  ${RESULTS}/all_vs_all_links/all_vs_all.aln.txt | cut -f 1,2,3,4,5,6 >> ${RESULTS}/conf/links_concatenated.txt ;
 
 # get links comming from contigs and give it colors
 IFS=','
@@ -25,7 +25,7 @@ empty_links()
   # concatenate genomes
   cat ${RESULTS}/filtered/* >> ${RESULTS}/concatenated_genomes.fasta ;
   export CONCAT_FASTA=${RESULTS}/concatenated_genomes.fasta
-  export BLAST_DB=${RESULTS}/all_vs_all_blast/blast_db
+  export BLAST_DB=${RESULTS}/all_vs_all_links/blast_db
   
   touch ${RESULTS}/conf/links_concatenated_colored.txt ${RESULTS}/conf/links_concatenated_colored_no_intrachr.txt 
 }

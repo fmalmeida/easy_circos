@@ -1,5 +1,5 @@
 {% set name = "easy_circos" %}
-{% set version = "0.3" %}
+{% set version = "0.4" %}
 
 package:
   name: "{{ name|lower }}"
@@ -22,6 +22,7 @@ requirements:
     - perl-app-cpanminus
     - perl-module-build
     - blast
+    - minimap2
   run:
     - perl
     - circos
@@ -32,6 +33,7 @@ requirements:
     - perl-app-cpanminus
     - perl-module-build
     - blast
+    - minimap2
 
 about:
   home: "https://github.com/fmalmeida/easy_circos_plot"

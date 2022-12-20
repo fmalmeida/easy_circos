@@ -14,9 +14,17 @@ workflow()
   # Step 3
   if [ "$SKIP_LINKS" = "no" ]
   then
-  echo " # Finding links (all vs all blastn)!"
-  find_links      ;
-  parse_links     ;
+  
+    if [ "$USE_MINIMAP2" = "yes" ]
+    then
+    echo " # Finding links (all vs all minimap2)!"
+    minimap_links   ;
+    else
+    echo " # Finding links (all vs all blastn)!"
+    find_links      ;
+    parse_links     ;
+    fi
+
   else
   echo " # Skipping links (all vs all blastn)!"
   empty_links     ;
