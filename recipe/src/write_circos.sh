@@ -3,6 +3,9 @@ write_circos()
 cat << EOF
 # MINIMUM CIRCOS CONFIGURATION
 
+# debugging, I/O an dother system parameters
+<<include etc/housekeeping.conf>> # included from Circos distribution
+
 # Defines unit length for ideogram and tick spacing, referenced
 # using "u" prefix, e.g. 10u
 chromosomes_units = 500000
@@ -93,9 +96,6 @@ ${LABELS_CONF}
 ${TILES_CONF}
 
 </plots>
-
-# debugging, I/O an dother system parameters
-<<include etc/housekeeping.conf>> # included from Circos distribution
 
 show_ticks = yes
 show_tick_labels = yes

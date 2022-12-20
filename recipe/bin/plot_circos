@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # Simple script to create a circos plot between two FASTA files.
 
 ######################
@@ -34,6 +34,12 @@ export GCWINDOW=5000
 export GCSTEP=5000
 export BACANNOT="no"
 export SKIP_LINKS="no"
+export USE_MINIMAP2="no"
+export MINIMAP2_METHOD="asm20"
+export MAX_TICKS="5000"
+export MAX_IDEOGRAMS="200"
+export MAX_LINKS="50000"
+export MAX_POINTS_PER_TRACK="50000"
 
 ######################################
 ### Function to filter FASTA files ###
@@ -54,6 +60,11 @@ source ${SCRIPT_DIR}/../src/find_links.sh
 ### Function to parse blastn (links) and create conf file with colors ###
 #########################################################################
 source ${SCRIPT_DIR}/../src/parse_links.sh
+
+########################################
+### Function to use minimap2 instead ###
+########################################
+source ${SCRIPT_DIR}/../src/minimap2.sh
 
 #############################################################################
 ### Function to sort and remove duplicates from links and karyotype files ###
@@ -233,6 +244,30 @@ case $ARGS in
     --skip_links)
       export SKIP_LINKS="yes"
       shift
+      ;;
+    --use_minimap2)
+      export USE_MINIMAP2="yes"
+      shift
+      ;;
+    --minimap2_method)
+      export MINIMAP2_METHOD=$2
+      shift 2
+      ;;
+    --max_ticks)
+      export MAX_TICKS=$2
+      shift 2
+      ;;
+    --max_ideograms)
+      export MAX_IDEOGRAMS=$2
+      shift 2
+      ;;
+    --max_links)
+      export MAX_LINKS=$2
+      shift 2
+      ;;
+    --max_points_per_track)
+      export MAX_POINTS_PER_TRACK=$2
+      shift 2
       ;;
     *)
       printf "******************************\n"

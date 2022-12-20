@@ -33,13 +33,20 @@ Copyright, Felipe Almeida <almeidafmarques@outlook.com>, 2021
     # Input min. length
     --minlen                            Min size of contigs to consider for plot [Default: 10000]
 
-    # Links (blastn) min. percentage id
+    # Links configurations
     --skip_links                        Do not compute blast and do not draw links.
                                         Useful for when only desiring the configs. [Default: false]
+    
+    --use_minimap2                      Compute links with minimap2. This is only useful for big genomes.
+                                        With small genomes probably no align block will be detected.
+                                        For minimap2, --minid and --linklen have no effect. By default uses blastn.
+    
+    --minimap2_method                   Select alignment "method" / "algorithm" for minimap2.
+                                        Options: asm5 | asm10 | asm20. [Default: asm20]
 
-    --minid                             Min. percentage id to filter the results of blastn to draw links [Default: 85]
+    --minid                             Min. percentage id to filter the results of blastn (only for blastn) to draw links [Default: 85]
 
-    --linklen                           Min. link (blastn hit) length to display in plot [Default: 5000]
+    --linklen                           Min. length of blastn hits (only for blastn) length to display in plot [Default: 5000]
     
     --show_intrachr                     Tells the program to create a conf file showing intra chr links [Default: false]
                                         Mandatory if using only one FASTA, otherwise, links will not be shown.
@@ -60,6 +67,13 @@ Copyright, Felipe Almeida <almeidafmarques@outlook.com>, 2021
                                         3 or 4 columns as shown at http://circos.ca/documentation/tutorials/configuration/data_files.
                                         The first column must be the name (ID) of the contig.
                                         Checkout the "--gff2tiles" script (below).
+    
+    # Housekeeping conf
+
+    --max_ticks                         Max number of ticks allowed to plot. [Default: 5000]
+    --max_ideograms                     Max number of ideograms allowed to plot. [Default: 200]
+    --max_links                         Max number of links allowed to plot. [Default: 50000]
+    --max_points_per_track              Max number of points per track (e.g. histogram) allowed to plot. [Default: 50000]
 
 
     # Helpful scripts!

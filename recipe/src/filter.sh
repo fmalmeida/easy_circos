@@ -13,5 +13,4 @@ while read -r FASTA FASTA_PREFIX FASTA_COLOR ; do
   $CONDA_PREFIX/bin/perl $CONDA_PREFIX/bin/removesmalls.pl $MINLEN $FASTA >> ${RESULTS}/filtered/"$name" ;
   continue
 done<"$FOFN"
-
 }
