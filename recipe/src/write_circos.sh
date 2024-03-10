@@ -78,18 +78,7 @@ label_parallel	 = yes
 # Add plots
 <plots>
 
-# GC Skew
-<plot>
-type        = histogram
-file        = GC_skew.txt
-r1          = 1r
-r0          = 0.85r
-thickness   = 3
-max         = 0.49999999999999173
-min         = -0.47826086956521324
-extend_bin  = yes
-orientation = out
-</plot>
+${GC_CONF}
 
 ${LABELS_CONF}
 

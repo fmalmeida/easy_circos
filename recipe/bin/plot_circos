@@ -34,6 +34,8 @@ export GCWINDOW=5000
 export GCSTEP=5000
 export BACANNOT="no"
 export SKIP_LINKS="no"
+export GC_CONF=""
+export SKIP_GC="no"
 export USE_MINIMAP2="no"
 export MINIMAP2_METHOD="asm20"
 export MAX_TICKS="5000"
@@ -161,7 +163,6 @@ case $ARGS in
     --tiles)
       if [[ -f "$2" ]]; then
           export TILES=$2
-          export LINKS_RADIUS="0.7r"
           shift 2
       else
           echo -e '\nERROR: "--tiles" requires an argument. Check your input.\n'
@@ -245,6 +246,10 @@ case $ARGS in
       export SKIP_LINKS="yes"
       shift
       ;;
+    --skip_gc)
+      export SKIP_GC="yes"
+      shift
+      ;;
     --use_minimap2)
       export USE_MINIMAP2="yes"
       shift
@@ -280,6 +285,14 @@ done
 ###################
 ### Exec script ###
 ###################
+# check radius
+if [ "$SKIP_GC" = "no" ]
+then
+  echo "Using default Link Radius"
+else
+  export LINKS_RADIUS="0.95r"
+fi
+
 source ${SCRIPT_DIR}/../src/workflow.sh
 source ${SCRIPT_DIR}/../src/bye.sh
 workflow

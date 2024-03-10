@@ -43,8 +43,15 @@ workflow()
   fi
 
   # Step 5
-  echo " # Computing GC Skew!"
-  gc_skew         ;
+  if [ "$SKIP_GC" = "no" ]
+  then
+  
+    echo " # Computing GC Skew!"
+    gc_skew
+
+  else
+  echo " # Skipping GC Skew calculation!"
+  fi
 
   # Step 6
   # Check for labels

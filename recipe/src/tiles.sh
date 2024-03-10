@@ -5,6 +5,17 @@ tiles()
 echo -e "#chr\tstart\tend\toptions\tcomment" > ${RESULTS}/conf/circos_tiles.txt ;
 grep -v "^#" ${TILES} >> ${RESULTS}/conf/circos_tiles.txt
 
+if [ "$SKIP_GC" = "no" ]
+then
+    export R1_tiles="0.85r"
+    export R2_tiles="0.75r"
+    export LINKS_RADIUS="0.7r"
+else
+    export R1_tiles="0.95r"
+    export R2_tiles="0.85r"
+    export LINKS_RADIUS="0.8r"
+fi
+
 # Create label definition
 read -r -d '' TILES_CONF << EOM
 # Tiles
@@ -13,8 +24,8 @@ read -r -d '' TILES_CONF << EOM
 type              = tile
 layers_overflow   = collapse
 file              = circos_tiles.txt
-r1                = 0.85r
-r0                = 0.75r
+r1                = ${R1_tiles}
+r0                = ${R2_tiles}
 orientation       = out
 
 layers      = 5

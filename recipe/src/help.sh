@@ -33,6 +33,9 @@ Copyright, Felipe Almeida <almeidafmarques@outlook.com>, 2021
     # Input min. length
     --minlen                            Min size of contigs to consider for plot [Default: 10000]
 
+    # GC Skew
+    --skip_gc                           Skip GC Skew calculation and output. [Default: false]
+
     # Links configurations
     --skip_links                        Do not compute blast and do not draw links.
                                         Useful for when only desiring the configs. [Default: false]
